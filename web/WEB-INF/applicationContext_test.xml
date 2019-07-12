@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--lazy-init延时加载  getBean时加载   -->
+    <!--scope="singleton" 默认值 单例模式  prototype:多例模式-->
+    <!--request时，创建的对象生命周期会与request周期相同-->
+    <!--init-method   创建执行-->
+    <!--destroy-method 销毁执行-->
+    <bean name="user" class="Bean.User" lazy-init="true" scope="singleton" init-method="UserInit" destroy-method="UserDestroy">
+        <property name="uName" value="aaa" ></property>
+        <property name="pwd" value="123456"></property>
+        <property name="myPet" ref="pet"/>
+    </bean>
+
+
+    <!--引用类型注入到user-->
+    <bean name="pet" class="Bean.Pet">
+        <property name="color" value="黑白"></property>
+        <property name="petType" value="哈士奇"></property>
+    </bean>
+
+
+    <!--构造函数注入到user-->
+    <!--constructor-arg构造方法  属性值-->
+    <!--type 加上type精确查找 指定参数类型-->
+    <!--index  z指定参数位置-->
+    <bean name="user1" class="Bean.User">
+        <constructor-arg name="uName" value="77" type="java.lang.Integer" index="0"/>
+        <constructor-arg name="myPet" ref="pet"/>
+    </bean>
+
+
+    <!--只有一个值时可直接写在property中-->
+    <!--ref 将对象注入到数组-->
+    <bean name="collection" class="Bean.Collection">
+        <property name="array">
+            <array>
+                <value>123</value>
+                <value>abc</value>
+                <ref bean="pet"/>
+            </array>
+        </property>
+        <!--<property name="array" value="123"/>-->
+
+        <property name="set" ref="pet"></property>
+
+        <!--map结构  key-ref引用实体-->
+        <property name="map">
+            <map>
+                <entry key="AAA" value="111"/>
+                <entry key-ref="user1" value-ref="pet"/>
+            </map>
+        </property>
+
+        <!--properties 只能存字符串-->
+        <property name="properties">
+            <props>
+                <prop key="name">张三</prop>
+                <prop key="sex">男</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="dog" class="Bean.Pet">
+        <property name="petType" value="二哈"></property>
+        <property name="color" value="黑白"></property>
+    </bean>
+    <bean name="cat" class="Bean.Pet">
+        <constructor-arg name="petType" value="cat"></constructor-arg>
+        <constructor-arg name="color" value="橘色"></constructor-arg>
+    </bean>
+</beans>
